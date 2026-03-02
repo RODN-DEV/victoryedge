@@ -1,0 +1,14 @@
+# Disable directory listing
+Options -Indexes
+
+# Disable file viewing
+<FilesMatch "\.js$|\.css$|\.html$">
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+</FilesMatch>
+
+# Prevent source code access
+RewriteEngine On
+RewriteCond %{REQUEST_URI} (?:script\.js|styles\.css|index\.html)
+RewriteRule ^(.*)$ - [L]
